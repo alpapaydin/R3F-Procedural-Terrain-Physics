@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import Terrain from './components/Terrain';
+import Lights from './components/Lights';
+import Character from './components/Character'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <Canvas style={{ height: '100vh' }} camera={{ position: [0, 50, 150], fov: 75 }}>
+            <Lights />
+            <Terrain />
+            <OrbitControls />
+            <Character />
+        </Canvas>
+    );
+};
 
 export default App;
