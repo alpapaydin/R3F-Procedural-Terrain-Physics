@@ -1,4 +1,4 @@
-![Preview](/preview.png.jpg?raw=true "Preview")
+![Preview](/preview.png?raw=true "Preview")
 
 # Getting Started
 
