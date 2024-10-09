@@ -1,3 +1,5 @@
+![Preview](/preview.png.jpg?raw=true "Preview")
+
 # Getting Started
 
 Clone the repository and run
