@@ -1,10 +1,13 @@
 // src/components/Character.js
+/* eslint-disable no-unused-vars */
 import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useKeyboard } from '../hooks/useKeyboard';
 import { checkTerrainCollision } from '../utils/terrainCollision';
 import { useCameraControls } from './CameraControls';
+import { CustomShaderMaterial } from '../shaders/PlayerShader';
+/* eslint-enable no-unused-vars */
 
 const CHARACTER_SPEED = 25.5;
 const CHARACTER_RADIUS = 1;
@@ -33,37 +36,34 @@ const Character = () => {
         if (keys.d) direction.add(right);
 
         direction.normalize().multiplyScalar(moveDistance);
-        
-        // Calculate new position
+
         const oldPosition = mesh.current.position.clone();
         const newPosition = oldPosition.clone().add(direction).add(velocity.clone().multiplyScalar(deltaTime));
         
-        // Check for collision and adjust position
         const { position: adjustedPosition, velocity: adjustedVelocity, isOnGround } = checkTerrainCollision(oldPosition, newPosition, CHARACTER_RADIUS, CHARACTER_HEIGHT, velocity, deltaTime);
-        
-        // Handle jumping
+
         if (keys.space && isOnGround && !isJumping) {
             adjustedVelocity.y = JUMP_FORCE;
             setIsJumping(true);
         }
 
-        // Update mesh position and velocity
         mesh.current.position.copy(adjustedPosition);
         setVelocity(adjustedVelocity);
 
-        // Update jumping state
         if (isOnGround) {
             setIsJumping(false);
         }
 
-        // Update camera
         updateCamera(adjustedPosition);
+
+        // Update shader time
+        mesh.current.material.uniforms.time.value += deltaTime;
     });
 
     return (
         <mesh ref={mesh}>
             <sphereGeometry args={[CHARACTER_RADIUS, 32, 32]} />
-            <meshStandardMaterial color="magenta" />
+            <customShaderMaterial attach="material" time={0} />
         </mesh>
     );
 };
