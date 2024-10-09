@@ -5,4 +5,4 @@ export const NOISE_SCALE = 0.1; // Scale factor for noise
 export const BIOME_NOISE_SCALE = 0.05; // Scale factor for biome noise
 export const HEIGHT_SCALE = 10; // Height scaling factor for visibility
 export const TERRAIN_COLOR = 0xFFFFFF;
-export const TERRAIN_SEED = "316931";
+export const TERRAIN_SEED = "31";
